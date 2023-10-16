@@ -16,7 +16,7 @@ final authControllerProvider =
   );
 });
 
-final currentUserDetailsProvider = FutureProvider.autoDispose((ref) {
+final currentUserDetailsProvider = FutureProvider((ref) {
   final currentUserId = ref.watch(currentUserAccountProvider).value!.$id;
   final userDetails = ref.watch(userDetailsProvider(currentUserId));
   return userDetails.value;
@@ -27,7 +27,7 @@ final userDetailsProvider = FutureProvider.family((ref, String uid) {
   return authController.getUserData(uid);
 });
 
-final currentUserAccountProvider = FutureProvider.autoDispose((ref) async {
+final currentUserAccountProvider = FutureProvider((ref) async {
   final authController = ref.watch(authControllerProvider.notifier);
   return authController.currentAccount();
 });
